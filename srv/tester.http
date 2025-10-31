@@ -1,0 +1,87 @@
+### Read data in Catalog Service Endpoint
+GET http://localhost:4004/odata/v4/CatalogService
+
+
+### Read data in Catalog Service Endpoint
+GET http://localhost:4004/odata/v4/CatalogService/$metadata
+
+
+### Read data in Catalog Service Endpoint
+GET http://localhost:4004/odata/v4/CatalogService/Employees
+
+
+
+
+### Read data in Catalog Service Endpoint
+GET http://localhost:4004/odata/v4/CatalogService/BusinessPartners
+
+
+###
+GET http://localhost:4004/odata/v4/CatalogService/Employees/02BD2137-0890-1EEA-A6C2-BB55C197E7FB
+
+
+
+
+###
+POST http://localhost:4004/odata/v4/CatalogService/Employees
+Content-Type: application/json
+
+
+{
+ "Currency_code": "EUR",
+  "ID": "02BD2137-0890-1EEA-A6C2-CC44C197ECCC",
+  "accountNumber": "7711224400",
+  "bankId": "121000228",
+  "bankName": "My Bank of SBI",
+  "email": "Rahul.Kumar@itelo.info",
+  "nameFirst": "Rahul",
+  "sex": "M",
+  "language": "E",
+  "nameLast": "Kumar",
+  "loginName": "RKUMAR",
+  "nameMiddle": null,
+  "phoneNumber": null,
+  "salaryAmount": "75000.00",
+  "nameInitials": null
+}
+
+
+###
+GET http://localhost:4004/odata/v4/CatalogService/Employees?$skip=5&top=5
+
+###
+POST http://localhost:4004/odata/v4/CatalogService/createEmployee
+Content-Type: application/json
+
+{
+ "Currency": "EUR",
+  "ID": "02BD2137-0890-1EEA-A6C2-CC44C197ECCC",
+  "accountNumber": "7711224400",
+  "bankId": "121000228",
+  "bankName": "My Bank of SBI",
+  "email": "Rahul.Kumar@itelo.info",
+  "nameFirst": "Rahul",
+  "sex": "M",
+  "language": "E",
+  "nameLast": "Kumar",
+  "loginName": "RKUMAR",
+  "nameMiddle": null,
+  "phoneNumber": null,
+  "salaryAmount": "75000.00",
+  "nameInitials": null
+}
+
+###
+GET http://localhost:4004/odata/v4/CatalogService/purchaseorders?$expand=Items
+
+###
+GET http://localhost:4004/odata/v4/CatalogService/purchaseorders
+
+###
+POST http://localhost:4004/odata/v4/CatalogService/purchaseorders/74867AD200E41EDBA5D8B0C98DC28052/discountOnPrice
+Content-Type: application/json
+
+{}
+
+###
+GET http://localhost:4004/odata/v4/CatalogService/purchaseorders('74867AD200E41EDBA5D8B0C98DC28052')/largestOrder()
