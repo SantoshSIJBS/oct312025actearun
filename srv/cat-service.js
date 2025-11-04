@@ -5,6 +5,7 @@ module.exports = (srv) => {
     const { Employees, purchaseorders } = srv.entities;
     srv.on('createEmployee', async(req,res) => {
         const dataset = req.data;
+        console.log(dataset);
         let returndata = await cds.tx(req).run([
             INSERT.into(Employees).entries(dataset)
         ]).then((resolve, reject)=>{

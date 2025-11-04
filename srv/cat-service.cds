@@ -1,12 +1,22 @@
 using { purchaseorders.db as db } from '../db/models';
 
-service CatalogSerivce @(path: 'CatalogService'){
+service CatalogSerivce @(path: 'CatalogService', requires: 'authenticated-user'){
 
     @readonly
     entity BusinessPartners as projection on db.master.businesspartner;
 
-   @readonly
-    entity Addresses as projection on db.master.address;
+
+    entity Addresses @(restrict : [
+        {
+            grant : ['READ'],
+            to : 'Viewer',
+            where : 'COUNTRY = $user.myCountry'
+        },
+        {
+            grant : ['WRITE'],
+            to : 'Admin'
+        }
+    ]) as projection on db.master.address;
 
      @Capabilities : { Readable, Updatable : false, Insertable : false, Deletable : false }
     entity Employees as projection on db.master.employees;
@@ -15,7 +25,7 @@ service CatalogSerivce @(path: 'CatalogService'){
     entity Products as projection on db.master.product;
 
     entity POItems as projection on db.transaction.poitems;
-    
+    // Added some comments here
     @odata.draft.enabled : true
     entity purchaseorders as projection on db.transaction.purchaseorder {
         *,
