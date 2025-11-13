@@ -1,0 +1,19 @@
+{
+    "welcomeFile" : "purchaseorders/webapp/",
+    "authenticationMethod" : "route",
+    "sessionTimeout" : 100,
+    "pluginMetadataEndpiont" : "/metadata",
+    "routes" : [
+        {
+            "source" : "^/purchaseorders/webapp/(*)",
+            "target" : "$1",
+            "localDir" : "purchaseorders/webapp/",
+            "authenticationMethod" : "xsuaa"
+        },
+        {
+            "source" : "^/(.*)$",
+            "destination" : "srv-api",
+            "authenticationMethod" : "xsuaa"
+        }
+    ]
+}

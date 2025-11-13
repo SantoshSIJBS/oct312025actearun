@@ -11,6 +11,25 @@ build-parameters:
         - npm ci
         - npx cds build --production
 modules:
+# Start of your UI Module
+  - name: PurchaseOrders-ui
+    type: nodejs
+    path: app
+    parameters:
+        buildpack: nodejs_buildpack
+    build-parameters:
+      builder: npm-ci
+    requires:
+      - name: srv-api
+        group: destinations
+        properties:
+          name: srv-api
+          strictSSL : true
+          forwardAuthToken: true
+          url: '~(srv-url)'
+      - name: PurchaseOrders-auth
+# End of your UI Module
+
   - name: PurchaseOrders-srv
     type: nodejs
     path: gen/srv
@@ -45,6 +64,19 @@ resources:
       config:
         xsappname: PurchaseOrders-${org}-${space}
         tenant-mode: dedicated
+        role-collections:
+          - name: 'Viewer (PurchaseOrders ${org}-${space})'
+            description: 'generated'
+            role-template-references:
+              - '$XSAPPNAME.Viewer'
+          - name: 'Admin (PurchaseOrders ${org}-${space})'
+            description: 'generated'
+            role-template-references:
+              - '$XSAPPNAME.Admin'
+          - name: 'userattributes (PurchaseOrders ${org}-${space})'
+            description: 'generated'
+            role-template-references:
+              - '$XSAPPNAME.userattributes'
   - name: PurchaseOrders-db
     type: com.sap.xs.hdi-container
     parameters:
